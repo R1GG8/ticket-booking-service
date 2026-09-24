@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: booking_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ticket_booking_db
+      POSTGRES_USER: booking_user
+      POSTGRES_PASSWORD: booking_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - booking_network
+
+  app:
+    build: .
+    container_name: booking_app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # Внутри сети docker имя хоста базы - это имя сервиса "postgres", а не localhost!
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ticket_booking_db
+      SPRING_DATASOURCE_USERNAME: booking_user
+      SPRING_DATASOURCE_PASSWORD: booking_password
+    depends_on:
+      - postgres
+    networks:
+      - booking_network
+
+volumes:
+  postgres_data:
+
+networks:
+  booking_network:

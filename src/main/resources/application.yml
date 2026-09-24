@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: ticket-booking-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ticket_booking_db
+    username: booking_user
+    password: booking_password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    open-in-view: false # Отключаем удержание соединения с БД на уровне контроллера
+    hibernate:
+      ddl-auto: validate # Структуру базы будет создавать Flyway, Hibernate только валидирует
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+server:
+  port: 8080
