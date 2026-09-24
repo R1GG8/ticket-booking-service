@@ -74,8 +74,6 @@ Unit-тесты: алгоритм расчета цен (PricingServiceTest).
 Модульные тесты с Mockito: изоляция репозиториев и логика бронирования (BookingServiceTest).
 Слайс-тесты контроллеров: тестирование HTTP-контрактов через MockMvc (TripControllerTest).
 Запуск тестов:
-code
-Bash
+```
 mvn clean test
-code
-Code
+```
